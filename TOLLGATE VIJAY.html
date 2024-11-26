@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Tollgate System</title>
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: #004d99;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 24px;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background-color: #003366;
+            padding: 10px;
+        }
+        .tabs button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+        .tabs button.active {
+            border-bottom: 3px solid #ffcc00;
+        }
+        .tabs button:hover {
+            color: #ffcc00;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        h2 {
+            text-align: center;
+            color: #004d99;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-group button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #004d99;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #003366;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #004d99;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #003366;
+            color: white;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Professional Vehicle Tollgate System</h1>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab-link active" data-tab="vehicle-details">Vehicle Details</button>
+        <button class="tab-link" data-tab="payment">Payment</button>
+        <button class="tab-link" data-tab="data-summary">Data Summary</button>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="vehicle-details" class="tab-content active">
+        <h2>Enter Vehicle Details</h2>
+        <form id="vehicleForm">
+            <div class="form-group">
+                <label for="vehicle-number">Vehicle Number</label>
+                <input type="text" id="vehicle-number" name="vehicle-number" placeholder="Enter vehicle number" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle-type">Vehicle Type</label>
+                <select id="vehicle-type" name="vehicle-type" required>
+                    <option value="" disabled selected>Select vehicle type</option>
+                    <option value="car">Car</option>
+                    <option value="bike">Bike</option>
+                    <option value="truck">Truck</option>
+                    <option value="bus">Bus</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="toll-amount">Toll Amount</label>
+                <input type="number" id="toll-amount" name="toll-amount" placeholder="Enter toll amount" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit Vehicle Details</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="payment" class="tab-content">
+        <h2>Payment Details</h2>
+        <form id="paymentForm">
+            <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" name="card-number" placeholder="Enter your card number" required>
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="password" id="cvv" name="cvv" placeholder="Enter CVV" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Make Payment</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="data-summary" class="tab-content">
+        <h2>Data Summary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Vehicle Number</th>
+                    <th>Vehicle Type</th>
+                    <th>Toll Amount</th>
+                    <th>Payment Status</th>
+                </tr>
+            </thead>
+            <tbody id="dataSummary">
+                <!-- Dynamically populated rows go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Vehicle Tollgate System. All rights reserved.
+    </footer>
+
+    <script>
+        // Tab Navigation Script
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabLinks.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+
+                tabLinks.forEach(link => link.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Form and Data Handling
+        const vehicleForm = document.getElementById('vehicleForm');
+        const paymentForm = document.getElementById('paymentForm');
+        const dataSummary = document.getElementById('dataSummary');
+
+        let vehicleData = {};
+
+        vehicleForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(vehicleForm);
+            vehicleData = {
+                number: formData.get('vehicle-number'),
+                type: formData.get('vehicle-type'),
+                toll: formData.get('toll-amount'),
+                payment: 'Pending'
+            };
+            alert('Vehicle details submitted. Proceed to payment.');
+        });
+
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            vehicleData.payment = 'Completed';
+            const row = `<tr>
+                <td>${vehicleData.number}</td>
+                <td>${vehicleData.type}</td>
+                <td>${vehicleData.toll}</td>
+                <td>${vehicleData.payment}</td>
+            </tr>`;
+            dataSummary.innerHTML += row;
+            alert('Payment successful and data saved.');
+        });
+    </script>
+</body>
+</html>
